@@ -3,8 +3,10 @@ package cmd
 import (
 	"fmt"
 	"os"
+	"sync"
 
 	"github.com/Lgdev07/deskify/database"
+	"github.com/Lgdev07/deskify/tasks"
 	"github.com/Lgdev07/deskify/twitch"
 	"github.com/spf13/cobra"
 )
@@ -28,11 +30,17 @@ func init() {
 		Long:  "Initialize the app",
 		Args:  cobra.NoArgs,
 		Run: func(cmd *cobra.Command, args []string) {
-			twitch.Initialize(db.DB)
+			var wg sync.WaitGroup
+
+			twitch.Initialize(&wg, db.DB)
+			tasks.Initialize(&wg, db.DB)
+
+			wg.Wait()
 		},
 	}
 
 	rootCmd.AddCommand(cmdRun)
 	InitTwitchCmd(db.DB)
+	InitTasksCmd(db.DB)
 
 }
