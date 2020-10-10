@@ -39,10 +39,20 @@ func InitTwitchCmd(db *gorm.DB) {
 		},
 	}
 
+	var cmdTwitchList = &cobra.Command{
+		Use:   "list",
+		Short: "List all channels",
+		Args:  cobra.NoArgs,
+		Run: func(cmd *cobra.Command, args []string) {
+			TwitchListChannels(db)
+		},
+	}
+
 	rootCmd.AddCommand(cmdTwitch)
 
 	cmdTwitch.AddCommand(cmdTwitchAdd)
 	cmdTwitch.AddCommand(cmdTwitchRem)
+	cmdTwitch.AddCommand(cmdTwitchList)
 
 }
 
@@ -82,4 +92,19 @@ func TwitchRemoveChannel(db *gorm.DB, channelName string) {
 		log.Fatal(err)
 	}
 	fmt.Printf("Channel %s Deleted with success\n", channelName)
+}
+
+func TwitchListChannels(db *gorm.DB) {
+	twitchList := []twitch.Twitch{}
+
+	db.Model(&twitch.Twitch{}).Find(&twitchList)
+
+	if len(twitchList) == 0 {
+		fmt.Println("No channels found")
+		return
+	}
+
+	for _, value := range twitchList {
+		fmt.Printf("Channel: %s\n", value.Name)
+	}
 }
