@@ -4,6 +4,7 @@ import (
 	"log"
 	"os"
 
+	"github.com/Lgdev07/deskify/tasks"
 	"github.com/Lgdev07/deskify/twitch"
 	"github.com/jinzhu/gorm"
 	"github.com/joho/godotenv"
@@ -25,6 +26,7 @@ func (s *Database) Initialize() {
 
 	s.DB.AutoMigrate(
 		&twitch.Twitch{},
+		&tasks.Task{},
 	)
 
 }
