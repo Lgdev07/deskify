@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"sync"
 	"time"
 
 	"github.com/gen2brain/beeep"
@@ -20,12 +21,16 @@ type Twitch struct {
 	IsLive bool   `json:"is_live"`
 }
 
-func Initialize(db *gorm.DB) {
-	for {
-		time.Sleep(2 * time.Second)
-		go MakeRequest(db)
+func Initialize(wg *sync.WaitGroup, db *gorm.DB) {
+	wg.Add(1)
 
-	}
+	go func() {
+		for {
+			time.Sleep(50 * time.Second)
+			MakeRequest(db)
+		}
+	}()
+
 }
 
 func MakeRequest(db *gorm.DB) {
