@@ -6,8 +6,8 @@ import (
 	"sync"
 
 	"github.com/Lgdev07/deskify/database"
-	"github.com/Lgdev07/deskify/tasks"
-	"github.com/Lgdev07/deskify/twitch"
+	"github.com/Lgdev07/deskify/services/tasks"
+	"github.com/Lgdev07/deskify/services/twitch"
 	"github.com/spf13/cobra"
 )
 
@@ -42,5 +42,6 @@ func init() {
 	rootCmd.AddCommand(cmdRun)
 	InitTwitchCmd(db.DB)
 	InitTasksCmd(db.DB)
+	InitPomodoroCmd(db.DB)
 
 }

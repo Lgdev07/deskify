@@ -5,7 +5,7 @@ import (
 	"log"
 	"strings"
 
-	"github.com/Lgdev07/deskify/tasks"
+	"github.com/Lgdev07/deskify/services/tasks"
 	"github.com/jinzhu/gorm"
 	"github.com/spf13/cobra"
 )
