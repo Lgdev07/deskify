@@ -18,8 +18,8 @@ func InitPomodoroCmd(db *gorm.DB) {
 
 	var cmdPomodoro = &cobra.Command{
 		Use:   "pomodoro [action]",
-		Short: "Do an action with the command pomodoro",
-		Long:  "task command preceed an action.",
+		Short: "Configure pomodoro technique and be notified",
+		Long:  "Configure pomodoro technique and be notified",
 		Run: func(cmd *cobra.Command, args []string) {
 			if focusTimer == 0 || restTimer == 0 {
 				fmt.Println("Focus or rest cannot be 0")
