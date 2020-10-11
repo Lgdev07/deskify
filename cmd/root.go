@@ -6,6 +6,7 @@ import (
 	"sync"
 
 	"github.com/Lgdev07/deskify/database"
+	"github.com/Lgdev07/deskify/services/pomodoro"
 	"github.com/Lgdev07/deskify/services/tasks"
 	"github.com/Lgdev07/deskify/services/twitch"
 	"github.com/spf13/cobra"
@@ -26,14 +27,15 @@ func init() {
 
 	var cmdRun = &cobra.Command{
 		Use:   "run",
-		Short: "Initialize the app",
-		Long:  "Initialize the app",
+		Short: "Initialize all apps",
+		Long:  "Initialize all apps",
 		Args:  cobra.NoArgs,
 		Run: func(cmd *cobra.Command, args []string) {
 			var wg sync.WaitGroup
 
 			twitch.Initialize(&wg, db.DB)
 			tasks.Initialize(&wg, db.DB)
+			pomodoro.Initialize(&wg, db.DB)
 
 			wg.Wait()
 		},
