@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"strings"
+	"sync"
 
 	"github.com/Lgdev07/deskify/services/twitch"
 	"github.com/jinzhu/gorm"
@@ -14,9 +15,20 @@ func InitTwitchCmd(db *gorm.DB) {
 
 	var cmdTwitch = &cobra.Command{
 		Use:   "twitch [action]",
-		Short: "Do an action with the command",
-		Long:  "twitch command preceed an action.",
+		Short: "Add Twitch channels and be notified when it goes live",
+		Long:  "Add Twitch channels and be notified when it goes live",
 		Args:  cobra.MinimumNArgs(1),
+	}
+
+	var cmdTwitchRun = &cobra.Command{
+		Use:   "run",
+		Short: "Check if a channel is live and be notified",
+		Args:  cobra.NoArgs,
+		Run: func(cmd *cobra.Command, args []string) {
+			var wg sync.WaitGroup
+			twitch.Initialize(&wg, db)
+			wg.Wait()
+		},
 	}
 
 	var cmdTwitchAdd = &cobra.Command{
@@ -50,6 +62,7 @@ func InitTwitchCmd(db *gorm.DB) {
 
 	rootCmd.AddCommand(cmdTwitch)
 
+	cmdTwitch.AddCommand(cmdTwitchRun)
 	cmdTwitch.AddCommand(cmdTwitchAdd)
 	cmdTwitch.AddCommand(cmdTwitchRem)
 	cmdTwitch.AddCommand(cmdTwitchList)

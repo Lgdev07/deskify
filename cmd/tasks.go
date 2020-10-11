@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"strings"
+	"sync"
 
 	"github.com/Lgdev07/deskify/services/tasks"
 	"github.com/jinzhu/gorm"
@@ -15,9 +16,20 @@ func InitTasksCmd(db *gorm.DB) {
 
 	var cmdTask = &cobra.Command{
 		Use:   "task [action]",
-		Short: "Do an action with the command task",
-		Long:  "task command preceed an action.",
+		Short: "Create a task an be remebered every x minutes",
+		Long:  "Create a task an be remebered every x minutes",
 		Args:  cobra.MinimumNArgs(1),
+	}
+
+	var cmdTaskRun = &cobra.Command{
+		Use:   "run",
+		Short: "Be remebered of your tasks",
+		Args:  cobra.NoArgs,
+		Run: func(cmd *cobra.Command, args []string) {
+			var wg sync.WaitGroup
+			tasks.Initialize(&wg, db)
+			wg.Wait()
+		},
 	}
 
 	var cmdTaskAdd = &cobra.Command{
@@ -65,6 +77,7 @@ func InitTasksCmd(db *gorm.DB) {
 
 	rootCmd.AddCommand(cmdTask)
 
+	cmdTask.AddCommand(cmdTaskRun)
 	cmdTask.AddCommand(cmdTaskAdd)
 	cmdTask.AddCommand(cmdTaskRem)
 	cmdTask.AddCommand(cmdTaskDone)
