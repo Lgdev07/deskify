@@ -6,15 +6,17 @@ import (
 	"time"
 
 	"github.com/gen2brain/beeep"
-	"github.com/jinzhu/gorm"
+	"gorm.io/gorm"
 )
 
+// Pomodoro is the struct associated with database model.
 type Pomodoro struct {
 	gorm.Model
 	Focus int `gorm:"default:0" json:"focus"`
 	Rest  int `gorm:"default:0" json:"rest"`
 }
 
+// Initialize runs the functionality.
 func Initialize(wg *sync.WaitGroup, db *gorm.DB) {
 	pomodoro := &Pomodoro{}
 
