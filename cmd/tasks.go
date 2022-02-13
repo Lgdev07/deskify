@@ -7,8 +7,8 @@ import (
 	"sync"
 
 	"github.com/Lgdev07/deskify/services/tasks"
-	"github.com/jinzhu/gorm"
 	"github.com/spf13/cobra"
+	"gorm.io/gorm"
 )
 
 func InitTasksCmd(db *gorm.DB) {
@@ -37,7 +37,7 @@ func InitTasksCmd(db *gorm.DB) {
 		Short: "Add a task to be notified every x minutes",
 		Args:  cobra.MinimumNArgs(1),
 		Run: func(cmd *cobra.Command, args []string) {
-			task := fmt.Sprintf(strings.Join(args, " "))
+			task := strings.Join(args, " ")
 			TaskAdd(db, task, timer)
 
 		},
@@ -48,7 +48,7 @@ func InitTasksCmd(db *gorm.DB) {
 		Short: "Remove a task",
 		Args:  cobra.MinimumNArgs(1),
 		Run: func(cmd *cobra.Command, args []string) {
-			task := fmt.Sprintf(strings.Join(args, " "))
+			task := strings.Join(args, " ")
 			TaskRem(db, task)
 		},
 	}
@@ -58,7 +58,7 @@ func InitTasksCmd(db *gorm.DB) {
 		Short: "Mark a task as done",
 		Args:  cobra.MinimumNArgs(1),
 		Run: func(cmd *cobra.Command, args []string) {
-			task := fmt.Sprintf(strings.Join(args, " "))
+			task := (strings.Join(args, " "))
 			TaskDone(db, task)
 		},
 	}

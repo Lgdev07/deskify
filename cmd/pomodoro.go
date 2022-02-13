@@ -6,8 +6,8 @@ import (
 	"sync"
 
 	"github.com/Lgdev07/deskify/services/pomodoro"
-	"github.com/jinzhu/gorm"
 	"github.com/spf13/cobra"
+	"gorm.io/gorm"
 )
 
 func InitPomodoroCmd(db *gorm.DB) {
