@@ -1,0 +1,20 @@
+env:
+  - GO111MODULE=on
+project_name: deskify
+builds:
+  - id: deskify-linux
+    ldflags:
+      - -s -w
+    binary: deskify
+    env:
+      - CGO_ENABLED=1
+    main: main.go
+    goos:
+      - linux
+    goarch:
+      - amd64
+archives:
+- format: zip
+
+checksum:
+  name_template: "{{ .ProjectName }}-linux-checksums.txt"
