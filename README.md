@@ -36,11 +36,23 @@
   <img src=".github/deskify2.gif" width="500" />
 </h1>
 
+## 💫 Features
+
+- [x] [Pomodoro Timer](#pomodoro_timer)
+- [x] [Tasks Reminder](#tasks_reminder)
+- [x] [Twitch Channel Notification](#twitch)
+
 ## 🚀 Installation and execution
 
-1. You need to have golang installed;
-2. Clone this repository;
-3. Run go run main.go;
+Deskify is available for macOS, Windows, and Linux.
+
+1. Download the binary avaliable on [releases](https://github.com/Lgdev07/promotions/releases);
+2. Run `deskify`;
+
+```sh
+# Run `--help` for detailed information about CLI commands
+deskify [command] help
+```
 
 ## 🤔 How to contribute
 
