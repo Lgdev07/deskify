@@ -46,7 +46,7 @@
 
 Deskify is available for macOS, Windows, and Linux.
 
-1. Download the binary avaliable on [releases](https://github.com/Lgdev07/promotions/releases);
+1. Download the binary avaliable on [releases](https://github.com/Lgdev07/deskify/releases);
 2. Run `deskify`;
 
 ```sh
